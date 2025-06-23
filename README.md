@@ -52,3 +52,170 @@ mysql> exit
 =======
 
 ```
+
+Day 1:
+
+OOP --> OBJECT ORIENTED PROGRAMMING
+
+Object --> state and behaviour
+
+Template to create objects.
+* function
+* class
+* Type
+
+---
+
+SOLID Design Principles
+
+S --> Single Responsibility
+O --> Open Close Principle
+L --> Liskov Substitution Principle
+Generalization and Specialization
+I --> Interface seggregation
+D --> Dependency Injection [ Inversion Of Control]
+
+Java ?
+Technology, Platform to execute bytecode
+
+Java DK --> bytecode
+Kotlin DK --> bytecode
+Groovy DK --> bytecode
+
+==============
+
+Compile Time Environment : Development Kit --> compiler
+
+Account.java
+```
+    public class Account {
+        private static int count = 0; // state of class
+        private double balance; // instance var, state of object
+        public Account() {
+            count++;
+        }
+        public void deposit(double amt) {
+           // public void deposit(Account this, double amt) {
+            this.balance += amt;
+        }
+        public double getBalance() {
+            return this.balance;
+        }
+
+        public static int getCount() {
+            return count;
+        }
+    }
+```
+javac Account.java ---> Account.class
+
+AccountClient.java
+```
+public class AccountClient {
+    public static void main(String[] args) {
+        Account rahulAcc = new Account();
+        System.out.println(rahulAcc.getCount()); // 1
+          System.out.println(Account.getCount()); // 1
+        Account swethaAcc = new Account();
+         System.out.println(swethaAcc.getCount()); // 2
+           System.out.println(Account.getCount()); // 1
+        rahulAcc.deposit(56000.00);
+        // deposit(rahulAcc, 56000.00); 
+        swethaAcc.deposit(90000);
+
+        System.out.println(rahulAcc.getBalance());
+    }
+}
+```
+
+javac AccountClient.java ==> AccountClient.class
+
+=======
+
+State of class: member shared by all objects of a given class --> static
+
+================
+
+Logical grouping of class/objects in enterprise applications
+1) entity
+2) DAO --> Data Access Objects
+3) Business classes
+4) Service classes
+5) Exception classes
+6) Utility classes
+7) Client classes / UI classes
+
+Entity / Domain / Model classes
+
+Uber: Customer, Driver, Vehicle, Trip, Payment, .. --> Business data
+Long lived, survives application crash
+
+entity classes --> state [ fileds], setters, getters, hashCode, equals
+
+```
+Rectangle r1 = new Rectangle(4,5);
+Rectangle r2 = new Rectangle(4,5);
+
+r1 == r2 [false]
+r1.equals(r2); // should evalute to true
+```
+
+DAO: Data Access Object
+contain CRUD operations CREATE READ UPDATE and DELETE 
+
+DAO's are generally one per table 
+CustomerDAO, ProductDao, OrderDAO ...
+
+Service classes are facade over business and DAO classes.
+Generally one per role.
+AdminService, CustomerService ...
+
+```
+    public class BankingService {
+
+        public void transferFunds(Account fromAcc, Account toAcc, double amt) {
+            fromAcc.getBalance();
+            business logic
+            fromAcc.update(..)
+            toAcc.update()
+            transacton.update();
+            send SMS
+            send EMAIL
+        }
+    }
+
+```
+
+packages --> folders for logical grouping of classes
+
+```
+com
+    adobe
+        aem [project]
+            entity
+                Product.java
+                Customer.java
+                Order.java
+            dao
+                ProductDao.java
+                CustomerDao.java
+            service
+                CustomerService.java
+            utility
+                DataUtil.java
+
+```
+
+Relationship between objects:
+1) Generalization and Specialization
+2) Realization
+3) Association
+4) Uses A
+
+Resume @ 1:45 after lunch break
+
+
+
+
+
+

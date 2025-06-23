@@ -252,9 +252,72 @@ p instanceof Tv ==> false
 
 p.getClass ===> Mobile.class
 
+=================
 
+overriding rules:
+1) method name has to be same
+2) arguments has to be same
+3) return type has to be same or subtype
+4) visiblity has to be same or enhanced
 
+```
+    public class Account {
+        public Account getAccount() {
 
+        }
 
+        protected boolean login() {
 
+        }
+    }
+
+    public class SavingsAccount extends Account {
+        // valid for override
+        public SavingsAccount getAccount() {
+
+        }
+        // valid
+        public boolean login() {
+
+        }
+    }
+
+```
+
+Realization Relationship: Program to contract, program to interface
+
+a realization relationship signifies that one model element (the client) implements or fulfills the behavior specified by another element (the supplier)
+
+```
+interface EmployeeDao {
+    void addEmployee(Employee e);
+    Employee getEmployee(int id);
+}
+
+public class EmployeeDaoRdbmsImpl implements EmployeeDao {
+    public void addEmployee(Employee e) {
+        SQL insert
+    }
+    public Employee getEmployee(int id) {
+        sql select
+    }
+}
+
+public class EmployeeDaoMongoImpl implements EmployeeDao {
+    public void addEmployee(Employee e) {
+        db.employees.insert(e);
+    }
+    public Employee getEmployee(int id) {
+        db.employee.findAll();
+    }
+}
+
+```
+
+Why should we program to interface?
+1) DESIGN
+2) IMPLEMENTATION
+3) TESTING
+4) INTEGRATION
+5) LOOSE COUPLING
 

@@ -1,6 +1,6 @@
 package com.adobe.prj.entity;
 
-public class Product {
+public abstract class Product {
     private int id; // state
     private String name; // state
     private double price; // state
@@ -39,7 +39,9 @@ public class Product {
         this.price = price;
     }
 
-    public boolean isExpensive() {
-        return  false;
-    }
+//    public boolean isExpensive() {
+//        return  false;
+//    }
+
+    public abstract boolean isExpensive();
 }

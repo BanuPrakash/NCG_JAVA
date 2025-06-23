@@ -212,7 +212,46 @@ Relationship between objects:
 3) Association
 4) Uses A
 
-Resume @ 1:45 after lunch break
+
+Maven / Gradle
+Sonar --> Checkstyle, PMD, FindBugs
+Jenkins
+
+
+```
+    public class Product {
+       public double getPrice() {
+        return 100;
+       }
+    }
+
+    public class Mobile extends Product {
+       public double getPrice() {
+        return 999;
+       }
+        public String getConnectivity() {
+            return "5G";
+        }
+    }
+
+   Mobile m = new Mobile();
+   m.getPrice(); //  999
+   m.getConnectivity(); // 5G
+
+   Product p = new Mobile(); // upcasting
+   p.getPrice(); // 999
+   p.getConnectivity(); // ??? ERROR
+```
+
+Product p = new Mobile();
+p instanceof Product ===> true
+p instanceof Mobile ===> true
+p instanceof Object ===> true
+p instanceof Tv ==> false
+
+
+p.getClass ===> Mobile.class
+
 
 
 

@@ -553,3 +553,23 @@ Generic collections are not covariant
 ```
 List<Object> list = new ArrayList<String>(); // error
 ```
+
+Java 8 version --> Streams
+A stream is a sequence of elements, not a data structure itself. 
+It does not store data but rather provides a way to process it.
+
+High Order Functions:
+* function which can accept other function as argument
+* function which returns a function
+
+Commonly used HOF:
+1) intermediary operations
+    filter -> takes predicate function to get subset
+    map --> takes transform function to get transformed data
+    flatMap
+    skip
+    limit
+2) terminal operations
+    forEach --> takes action
+    collect
+    reduce --> takes aggregate function

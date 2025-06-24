@@ -455,5 +455,16 @@ Example for Runtime Annotations:
 
 ```
 
-Resume @ 11:20
+Avoid :
+```
+String s = "Hello";
+
+s += "World";
+
+s += "123";
+```
+
+instead use StringBuffer / StringBuilder
+
+
 

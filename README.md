@@ -600,3 +600,7 @@ HashCode:
     Rectangle 10,2 ==> 20
     Rectangle 20, 1 ==> 20
 ```
+
+Map stores data in key/value pair.
+key has to be unique, values can be be duplicated.
+Dictionary, Directory, object references, ...

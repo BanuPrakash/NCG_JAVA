@@ -54,12 +54,21 @@ public class ArraysExample {
 
         System.out.println("**** NAME ***");
 
-        Arrays.sort(products, new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+//        Arrays.sort(products, new Comparator<Product>() {
+//            @Override
+//            public int compare(Product o1, Product o2) {
+//                return o1.getName().compareTo(o2.getName());
+//            }
+//        });
+        // lambda expression
+//        Arrays.sort(products, (Product o1, Product o2) -> {
+//            return o1.getName().compareTo(o2.getName());
+//        });
+
+//        Arrays.sort(products, (Product o1, Product o2) -> o1.getName().compareTo(o2.getName()));
+
+        // Type Inference
+        Arrays.sort(products, ( o1,  o2) -> o1.getName().compareTo(o2.getName()));
 
         for(Product p: products) {
             System.out.println(p);

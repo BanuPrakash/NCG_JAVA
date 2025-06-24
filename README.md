@@ -482,7 +482,9 @@ Comparator --> logic is part of client code
 
 Example: FileSystem of OS has one mechanism [comparable] to sort and list
 
+Lambda Expressions can be used instead of Anonymous class if the interface is FunctionalInterface.
 
+FunctionalInterface: interface which has only one method to implement
 
 
 

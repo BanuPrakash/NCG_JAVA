@@ -604,3 +604,34 @@ HashCode:
 Map stores data in key/value pair.
 key has to be unique, values can be be duplicated.
 Dictionary, Directory, object references, ...
+
+Docker is a set of platform as a service (PaaS) products that use OS-level virtualization to deliver software in packages called containers.
+
+```
+Docker images:
+docker run -p 3306:3306 -d --name local-mysql -e MYSQL_ROOT_PASSWORD=Welcome123 mysql
+docker exec -it local-mysql bash
+# mysql -u root -p
+mysql> create database JAVA_NCG;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use JAVA_NCG;
+
+mysql> create table products (id int PRIMARY KEY AUTO_INCREMENT, name varchar(100), price double);
+
+
+mysql> insert into products values (0, 'iPhone 16', 98000.00);
+
+
+mysql> insert into products values (0, 'Wacom', 4000.00);
+
+
+mysql> select * from products;
++----+-----------+-------+
+| id | name      | price |
++----+-----------+-------+
+|  1 | iPhone 16 | 98000 |
+|  2 | Wacom     |  4000 |
++----+-----------+-------+
+
+```

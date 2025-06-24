@@ -28,7 +28,7 @@ public class StreamExample {
 
         System.out.println("*****");
 
-       double total =  products.stream()
+       double total =  products.parallelStream()
                .filter(p -> p.getCategory().equals("mobile"))
                 .map(p -> p.getPrice())
                 .reduce(0.0, (v1, v2) -> v1 + v2);

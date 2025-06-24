@@ -573,3 +573,30 @@ Commonly used HOF:
     forEach --> takes action
     collect
     reduce --> takes aggregate function
+
+======
+Set -> unique collection, not ordered, can't re-order
+
+HashSet implementation of Set uses
+hashCode() and equals() to identify duplicate elements
+
+TreeSet [Rarely used] uses comparable / Comparator to identify duplicated
+
+HashCode:
+* if 2 objects are similar then their hashcodes has to be same
+* 2 objects which are not similar can also have same hashcode
+
+```
+    public class Rectangle {
+
+        @override
+        public int hashCode() {
+            return w * b;
+        }
+    }
+
+    Rectangle 4,5 ==> 20
+    Rectangle 5,4 ==> 20
+    Rectangle 10,2 ==> 20
+    Rectangle 20, 1 ==> 20
+```

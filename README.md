@@ -321,3 +321,28 @@ Why should we program to interface?
 4) INTEGRATION
 5) LOOSE COUPLING
 
+===========================
+
+local variables --> Stack [method gets called, destroyed when method is poped out]
+static variables --> loaded into metaspace as soon as class is loaded
+instance variables --> heap area [ object created, destroyed when object is removed from heap area]
+
+Garbage Collector: MSC, G1GC, ZPC, Epsilon, ...
+
+GC is a low priority thread
+
+System.gc(); request to start Short term GC
+
+Product p = new Product();
+...
+
+p = null;
+
+==================
+
+Day 2
+
+interface Comparable {
+    int compareTo(Object obj);
+}
+

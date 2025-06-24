@@ -9,6 +9,7 @@ public class MobileDaoFactory {
         CLAZZ = resourceBundle.getString("MOBILE_DAO");
     }
 
+    // factory method
     public static MobileDao getMobileDao() {
 //        return  new MobileDaoMongoImpl();
         try {

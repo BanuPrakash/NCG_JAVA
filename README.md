@@ -342,7 +342,118 @@ p = null;
 
 Day 2
 
+```
 interface Comparable {
     int compareTo(Object obj);
 }
+```
+
+A class can implement multiple interfaces. 
+A class can extend from only one class.
+
+an interface can extend another interface.
+
+```
+    public class Rectangle {
+        int breadth;
+        int height;
+        // code..
+    }
+
+    public class DRectangle {
+        double breadth;
+        double height;
+    }
+```
+Generics:
+
+```
+     public class Rectangle<T>{
+        T breadth; // Object breadth;
+        T height;
+        // code..
+    }
+
+    Rectangle<Integer> r1 = new Rectangle<Integer>(4,5);
+    Rectangle<Double> r2 = new Rectangle<Double>(4.1, 9.2);
+    Rectangle<String> r3 = new Rectangle<String>("A", "B");
+```
+
+Type Wrapper classes: Integer, Short, Byte, Float, Double, ...
+
+int x = 10;
+Integer iX = x; // boxing
+int y = iX; // unboxing
+
+
+
+```
+     public class Rectangle<T extends Number>{
+        T breadth; // Number breadth;
+        T height;
+        // code..
+    }
+
+    interface Sample {
+        int AGE = 100; // public static final int AGE = 100;
+    }
+```
+
+Annotations:
+Metadata
+
+```
+@interface AnnotationName {
+    properties
+}
+```
+
+1) Who uses it?
+* COMPILER
+* CLASSLOADER
+* RUNTIME
+2) Where can I use it?
+METHOD
+TYPE [ class, interface, annotation, enum]
+FIELD
+PARAMETER
+
+@Override ==> COMPILER --> Checks base class method signature, if valid create a bytecode.
+bytecode doesn't have annotation data
+
+```
+    public @interface Mobile {
+        String name();
+    }
+
+    @Mobile(name="Samsung")
+    public class CandyCrush extends Game {
+
+    }
+
+```
+
+Example for Runtime Annotations:
+1) @Table
+2) @Column
+
+```
+    @Table(name="EMP")
+    public class Employee {
+
+        @Column(name="EMP_ID", type="NUMERIC(12)")
+        id;
+        @Column(name="EMP_NAME")
+        name;
+
+    }
+
+    @Table(name="BOOKS")
+    public class Book {
+        ...
+    }
+
+```
+
+Resume @ 11:20
 

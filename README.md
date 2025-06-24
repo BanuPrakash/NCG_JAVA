@@ -466,5 +466,28 @@ s += "123";
 
 instead use StringBuffer / StringBuilder
 
+=============================
+
+Data Containers:
+Array is a data container; size is fixed, adding and removing at arbitrary position is not efficient.
+
+Java Collection Framework provides data containsers [java.util package]
+* interfaces
+* implementation
+* algorithm / utilities
+
+Comparable and Comparator are for comparing objects.
+Comparable --> logic is part of object
+Comparator --> logic is part of client code
+
+Example: FileSystem of OS has one mechanism [comparable] to sort and list
+
+
+
+
+
+
+
+
 
 

@@ -486,10 +486,70 @@ Lambda Expressions can be used instead of Anonymous class if the interface is Fu
 
 FunctionalInterface: interface which has only one method to implement
 
+List:
+    * supports duplicate elements
+    * ordered
+    * re-ordered
+    * supports index based operation
+    get(10); add("", 9);
+Set:
+    * unique collection
+    * not ordered
+    * can't sort / shuffle / reverse
+
+List is an interface,
+ArrayList, LinkedList are implementations of List interface provided by JCF.
+Vector, Stack are depreicated.
+3rd party implementations for this interface are also available like from vavr.io, apache collections
 
 
+```
+interface Flyable {
+    void fly();
+}
+
+class Bird implements Flyable {
+    name;
+    colour;
+    age;
+    public void fly() {
+
+    }
+}
 
 
+Flyable f = new Bird();
+
+Flyable f = new Flyable() {
+    public void fly() {
+
+    }
+}
+
+```
+
+List interface ; ArrayList and LinkedList
 
 
+ArrayList list = new ArrayList(); // avoid this, program to interface
 
+List list = new ArrayList();  // not typesafe
+list.add("A");
+list.add(new Date());
+
+List<String> list = new ArrayList<>();
+list.add("A"); // valid
+list.add(new Date()); // error
+
+TypeSafe: compile without warning and at runtime no exception
+
+Arrays are Covariant
+```
+    Object[] data = new String[3]; // valid
+    data[0] = "Test";
+    data[1] = new Date(); // ArrayStoreException at runtime, not typesafe
+```
+Generic collections are not covariant
+```
+List<Object> list = new ArrayList<String>(); // error
+```

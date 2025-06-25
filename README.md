@@ -864,6 +864,20 @@ Jetty --> Servlet engine --> invoke ProductServlet
 HTML --> static content
 JSP --> Java Server Pages. static + dynamic content 
 
+===================
+
+MVC Architecture Pattern
+Model View Controller
+
+Model --> business data and logic [entity , Dao]
+View --> Presentation logic [html , css , js, jsp]
+Controller --> Application Logic [flow of application] --> servlet
+
+Server Side Redirection: can be used as multi stage processing of data
+SSR: one resource within the engine redirects to other resouce within the engine
+
+
+
 
 
 

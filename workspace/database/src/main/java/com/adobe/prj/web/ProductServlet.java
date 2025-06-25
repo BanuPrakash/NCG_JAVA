@@ -27,20 +27,22 @@ public class ProductServlet extends HttpServlet {
         resp.setContentType("text/html"); // MIME "image/gif", "application/pdf"
         ProductDao productDao = new ProductDaoJdbcImpl();
         List<Product> products = productDao.getProducts();
-        out.print("<html>");
-        out.print("<body>");
-        out.print("<table>");
-        out.print("<tr>");
-            out.print("<th>ID</th><th>Name</th><th>Price</th>");
-        out.print("</tr>");
-        for(Product p : products) {
-            out.print("<tr>");
-                out.print("<td>" + p.getId() + " </td>");
-                out.print("<td>" + p.getName() + " </td>");
-                out.print("<td>" + p.getPrice() + " </td>");
-            out.print("</tr>");
-        }
-        out.print("</table></body></html>");
+        req.setAttribute("products", products); //programmatically add to request
+        req.getRequestDispatcher("list.jsp").forward(req, resp);
+//        out.print("<html>");
+//        out.print("<body>");
+//        out.print("<table>");
+//        out.print("<tr>");
+//            out.print("<th>ID</th><th>Name</th><th>Price</th>");
+//        out.print("</tr>");
+//        for(Product p : products) {
+//            out.print("<tr>");
+//                out.print("<td>" + p.getId() + " </td>");
+//                out.print("<td>" + p.getName() + " </td>");
+//                out.print("<td>" + p.getPrice() + " </td>");
+//            out.print("</tr>");
+//        }
+//        out.print("</table></body></html>");
     }
 
     // POST

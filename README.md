@@ -635,3 +635,66 @@ mysql> select * from products;
 +----+-----------+-------+
 
 ```
+
+JDBC: Java Database Connectivity --> Integration library to connect to RDBMS
+JDBC is a set of interfaces, implementation classes are provided by database vendors
+
+Steps:
+1) load vendor provided classes
+    Class.forName("oracle.jdbc.Driver");
+    Class.forName("com.mysql.jdbc.Driver");
+
+2) Establish database connection
+
+Connection con = DriverManager.getConnection(URL, USER, PWD);
+getConnection is a factory method, based on URL it creates
+OracleConnection / MySQLConnection
+
+URLS:
+jdbc:oracle:thin:@127.14.14.11:1502:emp_db
+
+jdbc:mysql://190.33.14.11:3306/emp_db
+
+3) Send SQL
+3.1) Statement
+    use it if SQL is same for n requests like
+    select * from products
+3.2) PreparedStatement
+    use this if SQL has IN parameters
+
+    select * from users where username =? and password = ?
+    select * from products where category = ?
+
+    Avoid SQL concatination and Statement ==> SQL Injection
+    https://owasp.org/Top10/A03_2021-Injection/
+
+3.3) CallableStatement
+    use this if we have stored procedures
+
+4) 
+int executeUpdate(SQL) ==> INSERT, DELETE and UPDATE SQL
+ResultSet executeQuery(SQL) ==> SELECT
+
+ResultSet is a cursor to fetched data
+
+5) finally close the resources in finally block.
+
+============================
+
+Maven: Apache Maven is a build tool for Java projects. Using a project object model (POM),
+ Maven can be used to manage dependencies.
+ Maven manages a project's compilation, testing, and documentation.
+
+ pom.xml
+ ```
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <version>8.4.0</version>
+</dependency>
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.36</version>
+</dependency>
+ ```

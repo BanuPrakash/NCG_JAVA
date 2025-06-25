@@ -876,6 +876,140 @@ Controller --> Application Logic [flow of application] --> servlet
 Server Side Redirection: can be used as multi stage processing of data
 SSR: one resource within the engine redirects to other resouce within the engine
 
+========================================
+
+Spring Boot Framework and JPA Frameworks
+
+Spring Framework:
+lightweight container manages life cycle of a bean and DI for beans.
+ --> used for enterprise application.
+
+Servlet container manages the life cycle of servlet and DI for servlet.
+
+java version 1.2: Java Bean --> re-usable software component
+
+Spring --> Bean: any object managed by spring container.
+
+Spring depends on metadata to manage beans:
+xml metadata or annotation.
+
+```
+    public interface EmployeeDao {
+        void addEmployee(Employee e);
+    }
+
+    public class EmployeeDaoJdbcImpl implements EmployeeDao {
+        public addEmployee(Employee e) {
+            ...
+        }
+    }
+    public class EmployeeDaoMongoImpl implements EmployeeDao {
+        public addEmployee(Employee e) {
+            ...
+        }
+    }
+
+    public class AppService {
+        private EmployeeDao empDao;
+        public void setEmployeeDao(EmployeeDao dao) {
+            this.empDao = dao;
+        }
+
+        public void doTask(Employee e) {
+            empDao.addEmployee(e);
+        }
+    }
+
+beans.xml
+<beans>
+    <bean id="jdbc" class="pkg.EmployeeDaoJdbcImpl" />
+    <bean id="mongo" class="pkg.EmployeeDaoMongoImpl" />
+    <bean id="service" class="pkg.AppService" >
+        <property name="employeeDao" ref="jdbc" />
+    </bean>
+</beans>
+
+// to create Spring Container
+ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+
+// get bean from container
+AppService ser = ctx.getBean("service", AppService.class);
+ser.doTask(new Employee()); // use the bean
+```
+
+Annotations can be used as metadata instead of xml:
+1) @Component
+2) @Repository
+3) @Service
+4) @Controller
+5) @RestController
+6) @Configuration
+7) @ControllerAdvice
+
+by placing any of the above annotations on class spring container instantiate it.
+
+```
+    public interface EmployeeDao {
+        void addEmployee(Employee e);
+    }
+
+    @Repository
+    public class EmployeeDaoJdbcImpl implements EmployeeDao {
+        public addEmployee(Employee e) {
+            ...
+        }
+    }
+
+    @Service
+    public class AppService {
+        @Autowired
+        private EmployeeDao empDao;
+        public void doTask(Employee e) {
+            empDao.addEmployee(e);
+        }
+    }
+
+ApplicationContext ctx = new AnnotationConfigApplicationContext();
+ctx.scan("com.adobe");
+ctx.refresh();
+
+AppService service = ctx.getBean("appService", AppService.class);
+
+```
+
+https://github.com/spring-projects/spring-framework/blob/main/spring-jdbc/src/main/resources/org/springframework/jdbc/support/sql-error-codes.xml
+
+```
+ try {
+
+ } catch(SQLException ex) {
+    // Oracle
+    if(ex.getErrorCode() == 1) }
+     throw new PersistenceException("User already exists with email");
+ }
+``
+
+Why Spring Boot?
+Framework is built on top of Spring Framework.
+Spring Boot 2.x is built on top of Spring Framework 5.x
+Spring Boot 3.x is built on top of Spring Framework 6.x
+
+* Highly opiniated framework
+for example:
+1) when web applications are built , tomcat is configured as embedded container
+2) While building JDBC applications, Database connection pool is created out of box
+3) many more features like MVC architecure Servlets ,,, are all configured.
+
+DriverManager.getConnection() ---> Single connection, BAD for entriprise application. Latency in creating a connection and releasing
+
+=========
+
+ SpringApplication.run(SpringdemoApplication.class, args); ==>
+
+@SpringBootApplication
+--> @ComponentScan 
+--> @Configuration
+--> @EnableAutoConfiguration --> Opiniated objects like DB con pool
 
 
 

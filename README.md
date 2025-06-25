@@ -851,11 +851,19 @@ mvn package --> triggers --> mvn compile
 Embedded Jetty / Tomcat web server with servlet engine
 
 mvn jetty:run
+mvn jetty:run -Djetty.port=9999
+
     --> mvn compile
     --> mvn package --> war file
     --> starts jetty server / engine
     --> deploys war file on started jetty
 
 http://localhost:8080/products
+
+Jetty --> Servlet engine --> invoke ProductServlet
+HTML --> static content
+JSP --> Java Server Pages. static + dynamic content 
+
+
 
 

@@ -2,9 +2,8 @@ package com.adobe.prj.dao;
 
 import com.adobe.prj.entity.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJdbcImpl implements ProductDao{
@@ -29,7 +28,25 @@ public class ProductDaoJdbcImpl implements ProductDao{
 
     @Override
     public List<Product> getProducts() {
-        return null;
+        List<Product> products = new ArrayList<>();
+        Connection con = null;
+        String SQL = "SELECT id, name, price FROM products";
+        try {
+            con = DBUtil.getConnection();
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(SQL);
+            while (rs.next()) {
+                products.add(new Product(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price")));
+            }
+        } catch (SQLException e) {
+//            throw new FetchException("unable to get products!!!", e);
+            e.printStackTrace();
+        } finally {
+            DBUtil.closeConnection(con);
+        }
+        return products;
     }
 
     @Override

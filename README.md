@@ -772,4 +772,88 @@ Maven: Apache Maven is a build tool for Java projects. Using a project object mo
  ```
 
  finally block is a compulsory execute block. gets called if exception occurs or not.
- 
+
+ ==========
+
+Web Application Development using Java.
+
+Servlet Technology : Servlet is a server side java program / application
+
+Servlet engines / Servlet Container / Web Container --> Jetty / Tomcat / Netty
+
+Servlets lifecycle, injecting dependencies are managed by Servlet engines/Container
+
+Deployment Descriptor
+XML / Annotation
+Mapping URL to Servlet
+
+HTTP Method of requests:
+GET : to get resource[s] --> default method when request is sent from Address bar URL or Hyperlink
+POST: create a new resource under resources
+PUT/PATCH: modifying
+DELETE: deleting
+
+GET http://localhost:8080/products
+
+
+
+request: encapsulates all info from client: FORM data, request parameters, BROWSER, OS, ..
+
+response: used to write back to client
+
+Deployment Descriptor: xml
+web.xml --> one per web application
+```
+    <servlet>
+        <servlet-name>First</servlet-name>
+        <servlet-class>com.adobe.prj.web.LoginServlet</servlet-class>
+    </servlet>
+    // internally its a MAP type of data container
+    <servlet-mapping>   
+         <servlet-name>First</servlet-name>
+         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+```
+Deployment Descriptor: Annotation
+
+``` 
+    @WebServlet("/login")
+    public class LoginServlet extends HttpServlet {
+
+    }
+```
+jar --> java archive --> library
+war --> web archive similar to jar but contains extra deployment descriptor adn folder structure which can be understood by servlet engines
+ear --> Enterprise archive
+
+WAR structure
+``` 
+    uberapp
+        |
+         index.html
+         styles.css
+         module.js
+         WEB-INF
+            |
+            web.xml
+            classes
+                |
+                LoginServlet.class
+                RegisterServlet.class
+                TripServlet.class
+
+```
+Maven Goals:
+mvn compile
+mvn package --> uses jar plugin or war plugin based on packaging config in pom.xml
+mvn package --> triggers --> mvn compile
+
+Embedded Jetty / Tomcat web server with servlet engine
+
+mvn jetty:run
+    --> mvn compile
+    --> mvn package --> war file
+    --> starts jetty server / engine
+    --> deploys war file on started jetty
+
+mvn tomcat:run

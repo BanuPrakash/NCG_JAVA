@@ -698,3 +698,78 @@ Maven: Apache Maven is a build tool for Java projects. Using a project object mo
     <version>1.18.36</version>
 </dependency>
  ```
+
+ Day 3
+ =====
+ Recap:
+ * Java Collection Framework: Comparable, Comparator, Arrays, Collections, ArrayList, HashSet and HashMap
+ * JDBC, Maven tool
+ * Docker desktop, mysql image and created local-mysql container
+ * JAVA_NCG database, products and inserted 2 records
+
+ Lombok: Project Lombok Java library into a build tool to automate some code, such as getter/setter methods and logging variables.
+
+ ```
+    public class ProductDaoJdbcImpl implements ProductDao {
+        public void addProduct(Product product) {
+            try {
+                Connection
+                Statement
+                ...
+            } catch(SQLException ex) {
+                log the exception
+            }
+        }
+    }
+
+    public class ProductDaoMongoImpl implements ProductDao {
+        public void addProduct(Product product) {
+            try {
+               db.products.insert(...)
+            } catch(MongoException ex) {
+                log the exception
+            }
+        }
+    }
+
+ public class ProductDaoJdbcImpl implements ProductDao {
+        public void addProduct(Product product) throws PersistenceException {
+                try {
+                Connection
+                Statement
+                ...
+            } catch(SQLException ex) {
+                log the exception on server
+                check exception error code and throw appropriate message
+                to client
+                if(ex.getErrorCode() == 6001) {
+                    throw new PersistenceException("product with id : " + id + " already exists");
+                }
+            }
+        }
+    }
+    public class ProductClient {
+        main() {
+
+            Product p = ...
+            try {
+                ProductDao productDao = new ProductDaoJdbcImpl();
+                productDao.addProduct(p);
+            } catch(PersistenceException ex) {
+                log
+            }
+        }
+    }
+
+    public class PersistenceException extends Exception {
+        constructors(...)
+    }
+
+    public interface ProductDao {
+        void addProduct(Product product) 
+                throws PersistenceException;
+    }
+ ```
+
+ finally block is a compulsory execute block. gets called if exception occurs or not.
+ 

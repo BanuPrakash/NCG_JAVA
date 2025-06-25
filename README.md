@@ -856,4 +856,6 @@ mvn jetty:run
     --> starts jetty server / engine
     --> deploys war file on started jetty
 
-mvn tomcat:run
+http://localhost:8080/products
+
+

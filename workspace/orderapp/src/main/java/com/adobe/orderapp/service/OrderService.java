@@ -4,19 +4,30 @@ import com.adobe.orderapp.entity.Customer;
 import com.adobe.orderapp.entity.Product;
 import com.adobe.orderapp.repo.CustomerDao;
 import com.adobe.orderapp.repo.ProductDao;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
-    @Autowired
-    private ProductDao productDao; // generated implementation class is wired
+    // constructor DI instead of setter DI
+//    @Autowired
+    private final ProductDao productDao; // generated implementation class is wired
 
-    @Autowired
-    private CustomerDao customerDao;// generated implementation class is wired
+//    @Autowired
+    private final CustomerDao customerDao;// generated implementation class is wired
 
+    public Product getProductById(int id) {
+        Optional<Product> opt =  productDao.findById(id);
+        if(opt.isPresent()) {
+            return opt.get();
+        }
+        return null;
+    }
     public List<Product> getProducts() {
         return productDao.findAll();
     }

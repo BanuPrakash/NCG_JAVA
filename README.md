@@ -1195,6 +1195,17 @@ Compiler --> Annotation Processor --> select "orderapp" --> obtain processor pat
 mvn compile.
 
 
+Task:
+
+Complete ProductClient to 
+1) list all products,
+2) get product by id.
+3) add a product [each time pass different product to avoid duplicates]
+
+
+
+
+
 
 
 

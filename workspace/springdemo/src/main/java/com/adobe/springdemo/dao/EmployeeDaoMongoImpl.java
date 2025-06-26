@@ -5,12 +5,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Profile("dev")
-public class EmployeeDaoJdbcImpl implements  EmployeeDao{
+@Profile("prod")
+public class EmployeeDaoMongoImpl implements  EmployeeDao{
     @Override
     public void addEmployee() {
-        System.out.println("JDBC Store!!!");
+        System.out.println("Mongo Store!!!");
     }
 }
-
-// new EmployeeDaoJdbcImpl(); not required, Spring container instantiates because of @Repository

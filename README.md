@@ -1011,7 +1011,72 @@ DriverManager.getConnection() ---> Single connection, BAD for entriprise applica
 --> @Configuration
 --> @EnableAutoConfiguration --> Opiniated objects like DB con pool
 
+==========
+
+Day 4:
+
+JDBC --> Integration Library to connect to RDBMS
+Maven -> build tool to manage dependencies, execute goals like compile, package, having embedded jetty web container plugin
+Web application using Servlet Technology. Servlet and JSP [MVC]
+packaging --> war
+
+Spring Framework and Spring Boot framework.
+* Light weight container to manage beans.
+* Life cycle and dependency injection is managed by the Spring container.
+
+Field employeeDao in com.adobe.springdemo.service.AppService required a single bean, but 2 were found:
+	- employeeDaoJdbcImpl
+	- employeeDaoMongoImpl
+
+```
+Solution 1:
+Make one of the eligible bean as @Primary
+
+@Repository
+@Primary
+public class EmployeeDaoJdbcImpl implements  EmployeeDao{
+ 
+Solution 2:
+Use Qualifier
+@Repository
+public class EmployeeDaoJdbcImpl implements  EmployeeDao{
+@Repository
+public class EmployeeDaoMongoImpl implements  EmployeeDao{
+
+@Service
+public class AppService {
+    @Autowired
+    @Qualifier("employeeDaoJdbcImpl")
+    private EmployeeDao employeeDao;
+
+Solution 3:
+use @Profile
+@Repository
+@Profile("prod")
+public class EmployeeDaoMongoImpl implements  EmployeeDao{
+
+@Repository
+@Profile("dev")
+public class EmployeeDaoJdbcImpl implements  EmployeeDao{
+
+@Service
+public class AppService {
+    @Autowired
+    private EmployeeDao employeeDao;
+
+application.properties
+spring.profiles.active=prod
 
 
+CustomerService
+    @Autowired
+    @Qualifier("employeeDaoJdbcImpl")
+    EmployeeDao employeeDao;
 
 
+AdminService
+    @Autowired
+    @Qualifier("employeeDaoMongoImpl")
+    EmployeeDao employeeDao;
+
+```

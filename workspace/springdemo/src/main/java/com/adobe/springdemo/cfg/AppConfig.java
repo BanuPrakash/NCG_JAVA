@@ -3,6 +3,7 @@ package com.adobe.springdemo.cfg;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import javax.sql.DataSource;
 
@@ -10,7 +11,8 @@ import javax.sql.DataSource;
 public class AppConfig {
 
     // @Bean --> factory method
-    @Bean
+    @Bean()
+//    @Scope("prototype")
     public DataSource getDataSource() {
         try {
             ComboPooledDataSource cpds = new ComboPooledDataSource();
@@ -27,4 +29,6 @@ public class AppConfig {
         }
         return  null;
     }
+
+
 }

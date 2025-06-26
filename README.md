@@ -1088,4 +1088,33 @@ https://www.mchange.com/projects/c3p0/
 DriverManger --> single connection to database
 DataSource --> pool of database connections
 
+All beans are singleton by default. 
+Prototype bean scope --> different instances for each wiring.
+
+==================================================
+
+ORM --> Object Relational Mapping
+
+Class <---> database table
+fields <---> columns of table
+
+ORM frameworks takes care of DDL and DML
+
+```
+Java Application <----> ORM <---> JDBC <---> RDBMS
+```
+
+ORM frameworks: Hibernate, TopLink, KODO, JDO, OpenJPA, ...
+
+JPA: Java Persistence API is a specicifation for ORM
+think JPA as interfaces, ORM as implementation.
+
+```
+Java Application <--> JPA <----> ORM <---> JDBC <---> RDBMS
+```
+
+Integrate Spring Framework with JPA.
+
+
+
 

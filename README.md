@@ -1187,6 +1187,14 @@ manage Product, PK is a int type
 
 update products set qty = 100 where 1 = 1;
 
+CommandLineRunner is an interface in Spring Boot that indicates a bean should execute its run() method as soon as the Spring container is created and initialized.
+
+Settings --> build, execution, ..
+Compiler --> Annotation Processor --> select "orderapp" --> obtain processor path from classpath.
+
+mvn compile.
+
+
 
 
 

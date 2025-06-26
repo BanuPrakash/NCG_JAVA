@@ -1116,6 +1116,68 @@ Java Application <--> JPA <----> ORM <---> JDBC <---> RDBMS
 
 Integrate Spring Framework with JPA.
 
+ServletContext: env where servlets are managed.
+ApplicationContext: Spring container where spring managed beans
+PersistenceContext: container where entities are managed 
+
+```
+    @Bean
+    public EntityManagerFactory emf(DataSource ds) {
+        LocalContainerEntityManagerFactory emf = new LocalContainerEntityManagerFactory();
+
+        emf.setDataSource(ds);
+        emf.setJpaVendor(new HibernateJpaVendor());
+        ...
+        return emf;
+    }
+
+```
+
+Spring Boot --> Spring Data JPA --> helps simplify using of JPA
+
+With Spring Data JPA we just need to create interface extends JpaRepository.
+Spring Data JPA generates implementation class for the interface, which has all the methods required for CRUD operations
+It also gives options to add more methods.
+
+```
+    interface ProductDao extends JpaRepository<Product, Integer> {
+
+    }
+```
+
+Spring using JPA project: spring boot application
+dependecies:
+1) lombok
+2) mysql
+3) jpa
+
+Spring Data Jpa uses Hibernate as default ORM and hikariCP library for database connection pool.
+
+https://docs.spring.io/spring-boot/appendix/application-properties/index.html
+
+1) spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+ORM has to generate SQL suitable for MySQL
+
+2) spring.jpa.hibernate.ddl-auto=update
+--> DDL : create, alter, drop
+
+a) spring.jpa.hibernate.ddl-auto=create
+create tables when application starts. drop tables when application terminates
+Good for testing environment only
+
+
+b) spring.jpa.hibernate.ddl-auto=update
+if table exists, map to existing tables. If required alter table
+if table not exists, create table
+
+c) spring.jpa.hibernate.ddl-auto=validate
+map class to existing tables, no alter and create new ones.
+Bottom to Top Approach. DBA has created tables, application developer just has to use it
+
+
+
+
 
 
 

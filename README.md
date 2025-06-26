@@ -1202,6 +1202,15 @@ Complete ProductClient to
 2) get product by id.
 3) add a product [each time pass different product to avoid duplicates]
 
+Mapping associations
+* one to many
+* many to one
+* one to one
+* many to many
+
+https://martinfowler.com/bliki/DomainDrivenDesign.html
+https://martinfowler.com/bliki/BoundedContext.html
 
 
-
+@JoinColumn with @ManyToOne introduces FK in owning table
+@JoinColumn with @OneToMany introduces FK in child table

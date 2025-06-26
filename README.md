@@ -1175,8 +1175,17 @@ c) spring.jpa.hibernate.ddl-auto=validate
 map class to existing tables, no alter and create new ones.
 Bottom to Top Approach. DBA has created tables, application developer just has to use it
 
+```
+JpaRepository<Customer, String>
+manage Customer --> CRUD for Customer
+PK is a String type
 
+JpaRepository<Product, Integer>
+manage Product, PK is a int type
 
+```
+
+update products set qty = 100 where 1 = 1;
 
 
 

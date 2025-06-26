@@ -1214,3 +1214,70 @@ https://martinfowler.com/bliki/BoundedContext.html
 
 @JoinColumn with @ManyToOne introduces FK in owning table
 @JoinColumn with @OneToMany introduces FK in child table
+
+====
+
+Without Cascade:
+```
+    one order has many line items;
+    @OneToMany
+    @JoinColumn(name="order_fk")
+    private List<LineItem> items = new ArrayList<>();
+
+    1 order has 4 items
+    orderDao.save(order);
+    itemDao.save(i1);
+    itemDao.save(i2);
+    itemDao.save(i3);
+    itemDao.save(i4);
+
+    To delete
+    orderDao.delete(order);
+    itemDao.delete(i1);
+    itemDao.delete(i2);
+    itemDao.delete(i3);
+    itemDao.delete(i4);
+```
+
+
+With Cascade:
+```
+    one order has many line items;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="order_fk")
+    private List<LineItem> items = new ArrayList<>();
+
+    1 order has 4 items
+
+    orderDao.save(order); // takes care of saving all items in order
+    orderDao.delete(order); // takes care of deleting items of order
+```
+
+LAZY and EAGER fetching:
+
+1) LAZY fetching --> default for OneToMany
+    ```
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="order_fk")
+    private List<LineItem> items = new ArrayList<>();
+
+     orderDao.findById(1);
+        select * from orders where oid = 1;
+    line items are not fetched
+    ```
+2) EAGER fetching
+```
+@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="order_fk")
+    private List<LineItem> items = new ArrayList<>();
+
+orderDao.findById(1);
+        select * from orders where oid = 1;
+        select * from line_items where order_fk = 1;
+
+```
+   
+ManyToOne by default is EAGER fetching
+
+With Cascade and EAGER fetching we don't need ItemDao
+====

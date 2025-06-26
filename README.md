@@ -1029,6 +1029,7 @@ Field employeeDao in com.adobe.springdemo.service.AppService required a single b
 	- employeeDaoMongoImpl
 
 ```
+
 Solution 1:
 Make one of the eligible bean as @Primary
 

@@ -1281,3 +1281,7 @@ ManyToOne by default is EAGER fetching
 
 With Cascade and EAGER fetching we don't need ItemDao
 ====
+
+
+ @Transactional ensures that the method is atomic operation, all operations commit or rollback if any exception occurs.
+ 

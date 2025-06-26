@@ -1,6 +1,7 @@
 package com.adobe.orderapp.client;
 
 
+import com.adobe.orderapp.dto.NameAndPrice;
 import com.adobe.orderapp.entity.Product;
 import com.adobe.orderapp.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,22 @@ public class ProductClient implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        getProducts();
-        productById(3);
-
+//        productById(3);
 //        addNewProduct();
+//        fetchNameAndPrice();
+        modifyProduct();
+    }
+
+    private void modifyProduct() {
+        Product p = service.modifyProduct(2, 5356.99);
+        System.out.println(p);
+    }
+
+    private void fetchNameAndPrice() {
+        List<NameAndPrice> records = service.byNameAndPrice();
+        for(NameAndPrice dto : records) {
+            System.out.println(dto.name() +" ," + dto.price());
+        }
     }
 
     private void addNewProduct() {

@@ -1,9 +1,11 @@
 package com.adobe.orderapp.service;
 
+import com.adobe.orderapp.dto.NameAndPrice;
 import com.adobe.orderapp.entity.Customer;
 import com.adobe.orderapp.entity.Product;
 import com.adobe.orderapp.repo.CustomerDao;
 import com.adobe.orderapp.repo.ProductDao;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +48,16 @@ public class OrderService {
 
     public long getCustomerCount() {
         return  customerDao.count();
+    }
+
+    // DTO record
+    public List<NameAndPrice> byNameAndPrice() {
+        return  productDao.getNameAndPrice();
+    }
+
+    @Transactional
+    public Product modifyProduct(int id, double price) {
+        productDao.updateProduct(id, price);
+        return  getProductById(id);
     }
 }

@@ -1080,3 +1080,12 @@ AdminService
     EmployeeDao employeeDao;
 
 ```
+
+Factory Methods:  required when programatically you need to instantiate objects and hand it over to Spring Container to manage.
+Useful for 3rd party classes. Also useful if object creation is complex.
+https://www.mchange.com/projects/c3p0/
+
+DriverManger --> single connection to database
+DataSource --> pool of database connections
+
+

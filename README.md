@@ -987,7 +987,7 @@ https://github.com/spring-projects/spring-framework/blob/main/spring-jdbc/src/ma
     if(ex.getErrorCode() == 1) }
      throw new PersistenceException("User already exists with email");
  }
-``
+```
 
 Why Spring Boot?
 Framework is built on top of Spring Framework.

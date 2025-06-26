@@ -24,7 +24,7 @@ public class ProductClient implements CommandLineRunner {
 //        productById(3);
 //        addNewProduct();
 //        fetchNameAndPrice();
-        modifyProduct();
+//        modifyProduct();
     }
 
     private void modifyProduct() {

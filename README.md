@@ -1284,4 +1284,41 @@ With Cascade and EAGER fetching we don't need ItemDao
 
 
  @Transactional ensures that the method is atomic operation, all operations commit or rollback if any exception occurs.
- 
+
+ ==========
+ New Spring Boot with different database.
+ Vehicle Rental application
+ 1) entities required
+    Vehicle
+    Customer
+    Rental
+
+```
+    vehicles
+    REG_NO.         | type      | fuel_type | cost_per_day
+    UP 10 A 1234        SEDAN       ELECTIC     3500.00
+    KA 9 NC 5112        HATCHBACK   PETROL      2600.00
+
+
+    customer similar to already done in order app
+
+    rentals
+
+    id | vehicle_fk  | customer_fk | rent_from | rent_till
+
+```
+After Mapping, insert customers, vehicles data in the backend MySQL prompt
+
+Use case 1: Rent a Vehicle
+
+```
+id | vehicle_fk     | customer_fk           | rent_from         | return_date
+1      KA 9 NC 5112   linda@adobe.com           24 JUNE 2025        NULL
+```
+
+Use case 2: Return a Vehicle --> DIRTY CHECKING
+
+```
+id | vehicle_fk     | customer_fk           | rent_from         | return_date
+1      KA 9 NC 5112   linda@adobe.com           24 JUNE 2025        25 JUNE 2025
+```

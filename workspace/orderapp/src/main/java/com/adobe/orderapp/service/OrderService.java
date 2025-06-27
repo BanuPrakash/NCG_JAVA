@@ -6,6 +6,7 @@ import com.adobe.orderapp.entity.Customer;
 import com.adobe.orderapp.entity.LineItem;
 import com.adobe.orderapp.entity.Order;
 import com.adobe.orderapp.entity.Product;
+import com.adobe.orderapp.exception.EntityNotFoundException;
 import com.adobe.orderapp.repo.CustomerDao;
 import com.adobe.orderapp.repo.OrderDao;
 import com.adobe.orderapp.repo.ProductDao;
@@ -44,7 +45,7 @@ public class OrderService {
     // order has to be inserted, line items has to be inserted, product qty has to be decreased
 
     @Transactional // atomic operation
-    public String placeOrder(Order order) {
+    public String placeOrder(Order order) throws EntityNotFoundException {
         List<LineItem> items = order.getItems();
         double total = 0.0;
         for(LineItem item : items) {
@@ -76,12 +77,12 @@ public class OrderService {
         return orderDao.getOrderForGivenDate(d);
     }
 
-    public Product getProductById(int id) {
+    public Product getProductById(int id) throws EntityNotFoundException {
         Optional<Product> opt =  productDao.findById(id);
         if(opt.isPresent()) {
             return opt.get();
         }
-        return null;
+        throw  new EntityNotFoundException("Product with id : " + id + " doesn't exist!!!");
     }
     public List<Product> getProducts() {
         return productDao.findAll();
@@ -109,7 +110,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Product modifyProduct(int id, double price) {
+    public Product modifyProduct(int id, double price) throws EntityNotFoundException {
         productDao.updateProduct(id, price);
         return  getProductById(id);
     }

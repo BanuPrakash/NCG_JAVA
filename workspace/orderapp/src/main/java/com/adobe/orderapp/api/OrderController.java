@@ -2,6 +2,7 @@ package com.adobe.orderapp.api;
 
 import com.adobe.orderapp.dto.OrderReport;
 import com.adobe.orderapp.entity.Order;
+import com.adobe.orderapp.exception.EntityNotFoundException;
 import com.adobe.orderapp.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,7 +20,7 @@ public class OrderController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public String placeOrder(@RequestBody Order order) {
+    public String placeOrder(@RequestBody Order order) throws EntityNotFoundException {
         return  service.placeOrder(order);
     }
 

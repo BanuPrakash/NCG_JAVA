@@ -1461,3 +1461,29 @@ String --> int, double, long, short, byte
 
 PUT vs PATCH
 PUT and PATCH are both used for updating resources, but they differ in their approach. PUT replaces the entire resource with the data provided in the request body, while PATCH only updates specific fields of the resource.
+
+====
+
+Task:
+Complete Rental application for renting and returning a vehicle with RESTful.
+
+* @RestController
+* @RequestMapping
+* @Getmapping(), @PostMapping(), @Putmapping(), @PatchMapping() and @DeleteMapping
+
+* @RequestParam --> Query Parameters
+* @PathVariable --> Path Parameter
+* @RequestBody --> Payload to Java Object
+* @ResponseBody [optional] --> Java Object to JSON / XML payload
+* @DateTimeFormat
+
+=================
+
+Exception Handling and Validation.
+
+@ControllerAdvice
+
+
+
+
+

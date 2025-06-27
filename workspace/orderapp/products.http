@@ -6,6 +6,10 @@ Accept: application/json
 GET http://localhost:8080/api/products/3
 Accept: application/json
 
+### @name="Get product by ID which doesn't exist"
+GET http://localhost:8080/api/products/43
+Accept: application/json
+
 
 ### @name="Get products by Range"
 GET http://localhost:8080/api/products?low=500&high=15000

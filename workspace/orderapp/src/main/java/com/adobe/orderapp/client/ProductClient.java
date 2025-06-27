@@ -3,6 +3,7 @@ package com.adobe.orderapp.client;
 
 import com.adobe.orderapp.dto.NameAndPrice;
 import com.adobe.orderapp.entity.Product;
+import com.adobe.orderapp.exception.EntityNotFoundException;
 import com.adobe.orderapp.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ProductClient implements CommandLineRunner {
 //        modifyProduct();
     }
 
-    private void modifyProduct() {
+    private void modifyProduct() throws EntityNotFoundException {
         Product p = service.modifyProduct(2, 5356.99);
         System.out.println(p);
     }
@@ -48,7 +49,7 @@ public class ProductClient implements CommandLineRunner {
         System.out.println(service.addProduct(p));
     }
 
-    private void productById(int id) {
+    private void productById(int id) throws EntityNotFoundException{
         System.out.println("By ID : " + id);
         System.out.println(service.getProductById(id));
     }

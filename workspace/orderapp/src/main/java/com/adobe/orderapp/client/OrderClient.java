@@ -5,6 +5,7 @@ import com.adobe.orderapp.entity.Customer;
 import com.adobe.orderapp.entity.LineItem;
 import com.adobe.orderapp.entity.Order;
 import com.adobe.orderapp.entity.Product;
+import com.adobe.orderapp.exception.EntityNotFoundException;
 import com.adobe.orderapp.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
@@ -35,7 +36,7 @@ public class OrderClient implements CommandLineRunner {
         }
     }
 
-    private void newOrder() {
+    private void newOrder() throws EntityNotFoundException {
         Order order = new Order();
         Customer customer = new Customer();
         customer.setEmail("roger@adobe.com");

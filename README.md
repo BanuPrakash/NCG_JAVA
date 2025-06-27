@@ -1456,5 +1456,7 @@ Instead of Jackson --> jettison , GSON, Moxy if you want to use, explicitly it h
     }
 ```
 
-Resume @ 11: 30
+Spring has HttpMessageConverters:
+String --> int, double, long, short, byte
+
 

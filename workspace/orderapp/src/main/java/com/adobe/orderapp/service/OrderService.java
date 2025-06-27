@@ -43,7 +43,7 @@ public class OrderService {
      */
     // order has to be inserted, line items has to be inserted, product qty has to be decreased
 
-    //@Transactional // atomic operation
+    @Transactional // atomic operation
     public String placeOrder(Order order) {
         List<LineItem> items = order.getItems();
         double total = 0.0;

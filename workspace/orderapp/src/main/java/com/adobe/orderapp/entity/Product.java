@@ -24,10 +24,10 @@ public class Product {
     private String name;
 
 
-    @Min(value = 10, message = "Price ${validatedValue} has to more than {value}")
+    @Min(value = 10, message = "Price ${validatedValue} has to be more than {value}")
     private  double price;
 
-    @Min(value = 1, message = "Quantity ${validatedValue} has to more than {value}")
+    @Min(value = 1, message = "Quantity ${validatedValue} has to be more than {value}")
     @Column(name="qty")
     private int quantity;
 }

@@ -1514,3 +1514,33 @@ default message [Price 2.0 has to more than 10]]
 
 
 
+==========
+
+
+Unit Testing:
+--> done by developers
+--> Unit : A smallest compilable thing like a class
+* JUnit and TestNG are unit testing frameworks
+Spring boot bundles 
+* JUnit out of the box
+* Mockito for mocking API so that we can test objects in isolation
+
+Controller --> Service --> Repository --> database
+
+To test service we need to mock Repository
+To test controllers we need to mock service.
+
+* Hamcrest --> Matchers for asserting collections
+https://hamcrest.org/JavaHamcrest/tutorial
+* JsonPath
+https://jsonpath.com/
+
+WebMvcTest --> focuses on Spring MVC tests. doesn't create entire Spring Container, instead creates a contaniner with just DispatcherServletTest, HandlerMapping
+@WebMvcTest(ProductController.class) --> ProductController is instantiated.
+
+
+mock OrderService is created:
+ @MockitoBean
+ private OrderService service;
+
+ MockMvc --> used to perform HTTP CRUD operations like GET, POST, 

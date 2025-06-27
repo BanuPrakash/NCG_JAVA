@@ -3,6 +3,7 @@ package com.adobe.orderapp.api;
 import com.adobe.orderapp.entity.Product;
 import com.adobe.orderapp.exception.EntityNotFoundException;
 import com.adobe.orderapp.service.OrderService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,7 @@ public class ProductController {
         return  service.addProduct(product);
     }
 
+    @Hidden
     @PatchMapping ("/{id}")
     public Product updateProduct(@PathVariable("id") int id, @RequestParam("price") double price) throws EntityNotFoundException{
        return service.modifyProduct(id, price);

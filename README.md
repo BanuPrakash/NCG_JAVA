@@ -1545,6 +1545,54 @@ mock OrderService is created:
 
  MockMvc --> used to perform HTTP CRUD operations like GET, POST, 
 
- Resume @ 4:15
+RESTful API documentation:
+* RAML
+* OpenAPI --> Swagger implementation
 
- 
+```
+ <!-- OpenAPI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
+```
+
+http://localhost:8080/v3/api-docs
+http://localhost:8080/swagger-ui/
+
+================
+
+Task 2:
+Employee Project assign: can be completed only with ManyToOne association
+
+```
+    Employee
+    emp_id | email | fname | lname | hire_date | end_date
+
+    client
+    client_id | name
+
+    project
+    project_id | name | start_date | end_date | client_fk
+
+
+    public class EmployeeProject {
+        id
+        Project project; // 
+        Employee employee; //
+        String role;
+        Date startDate;
+        Date endDate;
+    }
+
+    employee_project
+    id | project_fk | employee_fk | role | start_date | end_date
+
+
+```
+
+https://www.database-answers.com/data_models/
+
+

@@ -1,6 +1,7 @@
 package com.adobe.orderapp.service;
 
 import com.adobe.orderapp.dto.NameAndPrice;
+import com.adobe.orderapp.dto.OrderReport;
 import com.adobe.orderapp.entity.Customer;
 import com.adobe.orderapp.entity.LineItem;
 import com.adobe.orderapp.entity.Order;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +43,7 @@ public class OrderService {
      */
     // order has to be inserted, line items has to be inserted, product qty has to be decreased
 
-    @Transactional // atomic operation
+    //@Transactional // atomic operation
     public String placeOrder(Order order) {
         List<LineItem> items = order.getItems();
         double total = 0.0;
@@ -66,6 +68,13 @@ public class OrderService {
     }
 
 
+    public List<OrderReport> getReport() {
+        return  orderDao.getReport();
+    }
+
+    public List<Order> getOrdersByDate(Date d) {
+        return orderDao.getOrderForGivenDate(d);
+    }
 
     public Product getProductById(int id) {
         Optional<Product> opt =  productDao.findById(id);

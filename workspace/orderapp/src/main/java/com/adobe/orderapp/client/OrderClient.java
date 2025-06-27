@@ -1,5 +1,6 @@
 package com.adobe.orderapp.client;
 
+import com.adobe.orderapp.dto.OrderReport;
 import com.adobe.orderapp.entity.Customer;
 import com.adobe.orderapp.entity.LineItem;
 import com.adobe.orderapp.entity.Order;
@@ -19,8 +20,8 @@ public class OrderClient implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        newOrder();
-        getOrders();
+//       newOrder();
+//        getOrders();
     }
 
     private void getOrders() {
@@ -41,8 +42,8 @@ public class OrderClient implements CommandLineRunner {
         order.setCustomer(customer); // order is by given customer
 
         LineItem item1 = new LineItem();
-        item1.setProduct(Product.builder().id(2).build());
-        item1.setQty(3);
+        item1.setProduct(Product.builder().id(5).build());
+        item1.setQty(10);
 
 //        LineItem item2 = new LineItem();
 //        item2.setProduct(Product.builder().id(1).build());
@@ -52,5 +53,13 @@ public class OrderClient implements CommandLineRunner {
 //        order.getItems().add(item2);
 
         service.placeOrder(order);
+    }
+
+
+    private void printOrders() {
+        List<OrderReport> reports = service.getReport();
+        for(OrderReport report : reports) {
+            System.out.println(report.firstName() +", " + report.email() +", " + report.orderDate() +", " + report.total());
+        }
     }
 }

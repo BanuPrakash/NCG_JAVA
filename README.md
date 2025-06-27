@@ -1322,3 +1322,138 @@ Use case 2: Return a Vehicle --> DIRTY CHECKING
 id | vehicle_fk     | customer_fk           | rent_from         | return_date
 1      KA 9 NC 5112   linda@adobe.com           24 JUNE 2025        25 JUNE 2025
 ```
+
+select c.fname, c.email, o.order_date, o.total  from orders o inner join customers c on c.email = o.customer_fk
+
+==========
+
+Day 4 Recap:
+* @Entity, @Id --> compulsory
+* @Column, @Table --> Optional
+* @OneToMany, @ManyToOne, @JoinColumn
+* Cascade, LAZY vs EAGER fetching
+
+Ward --> Booths --> Voters 
+
+* @Transactional boundary generally applied to a method, can be applied at a class level if every method is transactional
+
+* @Transactional ensures that the method is atomic, if no exception is propagated from method --> it commits, else if exception is propagated from a method marked as transactional --> it rollsback.
+
+* Within transactional boundary if an entity becomes dirty --> JPA flushes the state to database --> DIRTY CHECKING --> Update SQL
+
+* SQL Projection, @Query for SQL or JP-QL
+
+======
+
+Day 5:
+
+Order Date: in database 2025-06-26 16:39:33.817000
+
+Client sends : 2025-06-26
+
+Spring MVC Module
+* Traditional web applications like how servlet and JSP works --> Server Side Rendering --> JSP and ThymeLeaf 
+
+* Client Side Rendering: server sends representation in various formats like XML/ JSON of resource state
+    * Less Payload [only xml or json and sent and received]
+    * Heterogenous clients like Mobile / TV and Web clients like Browser.
+
+RESTful Web Services: Roy Fielding
+* Resource 
+* Representation [ state of resource]
+* Various Formats : Content Negotiation
+
+Uniform Identifier to refer to a Resource
+* URLs --> plural nouns refers to a resource
+http://server.com/api/products
+http://server.com/api/customers
+
+* HTTP methods for CRUD operations
+GET --> to fetch resource[s]
+POST --> to create a subresource 
+PUT/PATCH --> to update resource
+DELETE --> to delete a resource // AVOID this, not recommended
+
+1) To fetch all products
+GET http://localhost:8080/api/products
+
+2) To fetch products by range --> sub set --> query parameter [?]
+GET http://localhost:8080/api/products?low=500&high=2000
+Pagination
+GET http://localhost:8080/api/products?page=1&size=20
+
+3) To fetch based on path parameter [/]
+get product whose id is 3
+GET http://localhost:8080/api/products/3
+
+get all orders of banu@gmail.com
+GET http://localhost:8080/api/customers/banu@gmail.com/orders
+
+HTTP header
+accept:application/json
+accept:text/xml
+
+====
+
+4) POST http://localhost:8080/api/products
+  ```
+   accept: application/json
+   content-type: application/json
+
+   {
+    name : "A",
+    price: 4535.22
+   }
+
+```
+
+5) PUT http://localhost:8080/api/products/3
+
+    ```
+   accept: application/json
+   content-type: application/json
+
+   {
+    name : "A2",
+    price: 9000.22
+   }
+
+```
+
+GET and DELETE no payload --> Safe methods
+PUT and POST --> contains payload --> Not Safe methods
+
+GET is IDEMPOTENT
+PUT and POST are not IDEMPOTENT
+
+===========================
+
+Spring Boot MVC Module provides:
+1) Embedded Tomcat Servlet Container
+2) DispatcherServlet --> Works like a FrontController
+3) HandlerMapping --> mapping URLs to @Controller and @RestController
+4) By default it provies Jackson library for Java <--> JSON ContentNegotiation handler
+
+Instead of Jackson --> jettison , GSON, Moxy if you want to use, explicitly it has to be configured
+
+```
+    @RestController
+    @RequiredArgsConstructor
+    @RequestMapping("api/products")
+    public class ProductController {
+        private final OrderService service;
+
+        @GetMapping()
+        public List<Product> getProducts() {
+            return service.getProducts();
+        }
+
+        @PostMapping()
+        public Product addProduct(@RequestBody Product p) {
+        //  public @ResponseBody Product addProduct(@RequestBody Product p) {
+            return service.addProduct(p);
+        }
+    }
+
+
+```

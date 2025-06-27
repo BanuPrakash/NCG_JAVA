@@ -22,7 +22,7 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 
     // custom queries can be used
 
-    @Query("from Product where price >= : l and price <= : h")
+    @Query("from Product where price >= :l and price <= :h")
 //    @Query(value = "select * from products where price >=: l and price <= :h", nativeQuery = true)
     public List<Product> fetchByRange(@Param("l") double low,@Param("h") double high);
 

@@ -113,4 +113,8 @@ public class OrderService {
         productDao.updateProduct(id, price);
         return  getProductById(id);
     }
+
+    public List<Product> byRange(double low, double high) {
+        return productDao.fetchByRange(low, high);
+    }
 }

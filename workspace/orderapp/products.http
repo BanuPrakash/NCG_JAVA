@@ -26,6 +26,18 @@ Content-Type: application/json
   "quantity": 50
 }
 
+
+### @name="Add invalid Product"
+POST http://localhost:8080/api/products
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 2.00,
+  "quantity": 0
+}
+
 ### @name="update product price"
 PATCH http://localhost:8080/api/products/5?price=1200.34
 Accept: application/json

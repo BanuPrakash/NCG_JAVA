@@ -1483,7 +1483,33 @@ Exception Handling and Validation.
 
 @ControllerAdvice
 
+Validation:
+https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/package-summary
 
+```
+     <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    Validation Constraints are added to Product.java
+
+    public Product addProduct(@RequestBody @Valid Product product) {
+        return  service.addProduct(product);
+    }
+
+
+
+MethodArgumentNotValidException: Validation failed for argument [0] in public com.adobe.orderapp.entity.Product com.adobe.orderapp.api.ProductController.addProduct(com.adobe.orderapp.entity.Product) with 3 errors: 
+
+[Field error in object 'product' on field 'name': rejected value []; codes [NotBlank.product.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.name,name]; arguments []; default message [name]]; default message [Name is required!!!]] 
+
+    [Field error in object 'product' on field 'quantity': rejected value [0]; codes [Min.product.quantity,Min.quantity,Min.int,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.quantity,quantity]; arguments []; default message [quantity],1]; default message [Quantity 0 has to more than 1]] 
+
+[Field error in object 'product' on field 'price': rejected value [2.0]; codes [Min.product.price,Min.price,Min.double,Min]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [product.price,price]; arguments []; default message [price],10]; 
+default message [Price 2.0 has to more than 10]]
+
+
+```
 
 
 

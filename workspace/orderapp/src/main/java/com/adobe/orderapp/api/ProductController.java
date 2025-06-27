@@ -41,4 +41,9 @@ public class ProductController {
     public Product addProduct(@RequestBody Product product) {
         return  service.addProduct(product);
     }
+
+    @PatchMapping ("/{id}")
+    public Product updateProduct(@PathVariable("id") int id, @RequestParam("price") double price) {
+       return service.modifyProduct(id, price);
+    }
 }

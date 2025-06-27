@@ -1459,4 +1459,5 @@ Instead of Jackson --> jettison , GSON, Moxy if you want to use, explicitly it h
 Spring has HttpMessageConverters:
 String --> int, double, long, short, byte
 
-
+PUT vs PATCH
+PUT and PATCH are both used for updating resources, but they differ in their approach. PUT replaces the entire resource with the data provided in the request body, while PATCH only updates specific fields of the resource.

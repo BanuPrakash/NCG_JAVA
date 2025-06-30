@@ -13,6 +13,10 @@ public class SampleController {
         return  "Hello User!!!";
     }
 
+    @GetMapping("/customer")
+    public String sayHelloCustomer() {
+        return  "Hello Customer!!!";
+    }
     @GetMapping("/admin")
     public String sayHelloAdmin() {
         return  "Hello Admin!!!";

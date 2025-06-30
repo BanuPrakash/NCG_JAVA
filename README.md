@@ -1580,7 +1580,11 @@ Employee Project assign: can be completed only with ManyToOne association
 
     public class EmployeeProject {
         id
+        @ManyToOne
+        @Joincolumn(name="project_fk")
         Project project; // 
+        @ManyToOne
+        @Joincolumn(name="empoyee_fk")
         Employee employee; //
         String role;
         Date startDate;
@@ -1595,4 +1599,113 @@ Employee Project assign: can be completed only with ManyToOne association
 
 https://www.database-answers.com/data_models/
 
+
+==================
+
+Employee <---> Project looks like  many to many
+Movie <---> Actor looks like many to many
+``` 
+    Many to Many
+     Employee * <---> * Project
+     Employee
+    emp_id | email | fname | lname | hire_date | end_date 
+
+     project
+    project_id | name | start_date | end_date | client_fk
+
+    Join table
+    employees_project
+    emp_id | project_id
+
+    many times we need to store extra attributes like role of employee in project,
+    employee working duration in project
+
+     Join table has extra fields, so we need a link class to map
+    employees_project
+    emp_id | project_id | start_date | end_date | role
+
+    Employee 1 -> *  EmployeeProject * --> 1 Project
+```
+
+One To One Mapping Employee 1 <----> 1 Laptop
+
+```
+    Employee
+        empid | name | laptop_fk
+
+    Laptop
+        serail_no | description | make | HDD 
+
+    OR
+    class Employee {
+
+    }
+
+    class Laptop {
+
+        @OneToOne
+        @JoinColumn("employee_fk")
+        Employee emp;
+    }
+
+    Employee
+        empid | name 
+
+    Laptop
+        serial_no | description | make | HDD | employee_fk
+
+If we need to track complete history of laptop assigned [start_date, end_date, to which employee]
+```
+
+Dirty Checking:
+Dirty checking is a mechanism, most notably used by ORMs like Hibernate, that automatically detects changes made to managed entities within a session and synchronizes them with the database during the transaction's flush phase, eliminating the need for manual UPDATE or SAVE statements for every change.
+
+Any changes in Transactional boundary, entity will be synchronized with database
+by issuing UPDATE SQL --> Entity becomes dirty 
+```
+    // Programatic tx
+      public void updateQty(int id, int qty) {
+        Session session = sessionFactory.getSession();
+        Transaction tx = session.beginTransaction();
+        Product p = productDao.findById(3).get(); // get from database
+        p.setQuantity(qty); // product become dirty
+        tx.commit();
+        session.close();
+        // no need for explcit UPDATE SQL / JP-QL, ORM issues them for you.
+    }
+
+    // declarative tx
+    @Transactional
+    public void updateQty(int id, int qty) {
+        Product p = productDao.findById(3).get(); // get from database
+        p.setQuantity(qty); // product become dirty
+        // no need for explcit UPDATE SQL / JP-QL, ORM issues them for you.
+    }
+
+```
+
+Further learning:
+Async, HATEOAS, Caching, Scheduling, Observable, MicroMeter, ..
+
+==========================
+
+Spring Security
+
+Authentication and Authorization.
+
+```
+    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+```
+
+By including above security module our project is secured.
+1) All our resources are protected by default.
+2) creates one user with username ="user" and generated password
+Using generated security password: 92fa46e0-2b4f-445d-b0b3-4a6326138fee
+3) login page
+4) logout page
+http://localhost:8080/logout
 

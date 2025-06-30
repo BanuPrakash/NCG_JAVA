@@ -1715,5 +1715,7 @@ Filters are similar to Servlets which execute within Servlet Container.
 
 * Having In memory users
 * Role based access --> Authorization
+https://docs.spring.io/spring-security/reference/servlet/appendix/database-schema.html
 
+https://bcrypt-generator.com/
 

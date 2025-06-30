@@ -1709,3 +1709,4 @@ Using generated security password: 92fa46e0-2b4f-445d-b0b3-4a6326138fee
 4) logout page
 http://localhost:8080/logout
 
+Filters are similar to Servlets which execute within Servlet Container.

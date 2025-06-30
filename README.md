@@ -1719,3 +1719,76 @@ https://docs.spring.io/spring-security/reference/servlet/appendix/database-schem
 
 https://bcrypt-generator.com/
 
+RESTful Services ---> Stateless [one of the charactersticis]
+
+RESTful APIs are stateless, meaning that each request made by the client to the server contains all the information necessary for the server to fulfill the request, without relying on any previous requests or server-side storage. 
+No Converstational state of client, each request should be treated as a fresh request.
+
+
+* Problem with Statefulness
+1) Clients are heterogenous
+2) Session stickiness in Cluster environment, scability is an issue
+
+Solution: use tokens --> JWT token
+https://jwt.io/
+
+```
+// HEADER
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+// PAYLOAD
+{
+  "sub": "banu@gmail.com",
+  "iat": 1516239022,
+  "exp": 1899999212,
+  "iss": "https://security.adobe.com",
+  "roles/authorities": "ROLE_ADMIN, ROLE_CUSTOMER"
+}
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.
+// SIGNATURE
+HMACSHA256(
+      base64UrlEncode(header) + "." +
+      base64UrlEncode(payload),
+      a-string-secret-at-least-256-bits-long)
+KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30
+
+```
+
+Authorization Server: Private keys to generate tokens
+Resource Server: public keys can be used to validate token
+
+Custom UserDetailsService with JPA instead of default JdbcAuthentication Manager.
+
+```
+
+mysql> desc users;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| email    | varchar(255) | NO   | PRI | NULL    |       |
+| password | varchar(255) | YES  |     | NULL    |       |
+| username | varchar(255) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc roles;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| name        | varchar(255) | NO   | PRI | NULL    |       |
+| description | varchar(255) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> desc users_roles;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| user_id | varchar(255) | NO   | PRI | NULL    |       |
+| role_id | varchar(255) | NO   | PRI | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+
+```

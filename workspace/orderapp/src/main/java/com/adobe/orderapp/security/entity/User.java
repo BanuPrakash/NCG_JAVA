@@ -2,6 +2,7 @@ package com.adobe.orderapp.security.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name="users")
 public class User implements UserDetails  {
@@ -26,7 +28,7 @@ public class User implements UserDetails  {
     private String password;
     // extra fields
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="USERS_ROLES",
          joinColumns = {
             @JoinColumn(name="USER_ID")},

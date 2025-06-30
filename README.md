@@ -1793,4 +1793,135 @@ mysql> desc users_roles;
 
 ```
 
+* Repository
+* JWTFilter
+* SecurityConfig
+* JWTConfig
+* UserDetailsService [ custom]
+
+==============
+
+Security JWT dependencies
+
+```
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+```
+
+* User and Role ManyToMany association
+* UserDao
+* For registration -- SignUpRequest DTO
+* for Login -- SignInRequest DTO
+* On success -- JwtTokenResponse DTO
+* Services:
+1) UserDetailsServiceImpl
+Spring Security --> loadUserByUsername() --> UserDao loadByEmail()
+
+Login:
+Generate Token
+JwtService --> generateToken() 
+
+ http://localhost:8080/auth/login [email/password] AuthController --> login() 
+ AuthenticationService --> signIn() --> authenticationManager.authenticate()
+ --> jwtService.generateToken(user);
+
+
+Access Resources: Validate token --> JwtAuthenticationFilter
+
+
+Registration:
+1) 
+```
+
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "peter@adobe.com",
+  "password": "secret",
+  "username": "Peter",
+  "roles": [ {
+    "name": "ROLE_USER",
+    "description": "Has basic rights"
+  }]
+}
+```
+request.requestMatchers("/auth/**").permitAll()
+
+2) AuthController register()
+3) AuthenticationService --> signup() -->  userDao.save(user); 
+
+========================
+
+Login Flow:
+
+1) 
+```
+### @name ="Admin Login"
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "anna@adobe.com",
+  "password": "secret"
+}
+```
+request.requestMatchers("/auth/**").permitAll()
+
+2) AuthController --> login() --> AuthenticationService --> signIn() -->  authenticationManager.authenticate() --> UserDetailsService --> loadByEmail() -->  jwtService.generateToken(user);
+
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbm5hQGFkb2JlLmNvbSIsImlhdCI6MTc1MTI3NTQ1MSwiZXhwIjoxNzUxMjc2ODkxLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiLCJST0xFX0FETUlOIl0sInJvbGVzIjpbIlJPTEVfVVNFUiIsIlJPTEVfQURNSU4iXSwiaXNzIjoiaHR0cHM6Ly9hdXRoc2VydmVyLmFkb2JlLmNvbSJ9.pQjxb-X4FVR77NqoKx6StwY3RnTLuShQCtORfMp2zQA"
+}
+
+====
+
+Access Protected resources using JWT token
+
+1) 
+```
+
+
+### @name="access Protected Resource"
+
+GET http://localhost:8080/api/products
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbm5hQGFkb2JlLmNvbSIsImlhdCI6MTc1MTI3NTQ1MSwiZXhwIjoxNzUxMjc2ODkxLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiLCJST0xFX0FETUlOIl0sInJvbGVzIjpbIlJPTEVfVVNFUiIsIlJPTEVfQURNSU4iXSwiaXNzIjoiaHR0cHM6Ly9hdXRoc2VydmVyLmFkb2JlLmNvbSJ9.pQjxb-X4FVR77NqoKx6StwY3RnTLuShQCtORfMp2zQA
+
+```
+
+2) JwtAuthenticationFilter - doFilterInternal()
+
+No Authorization Header  filterChain.doFilter(request, response); --> UsernamePasswordAuthenticationFilter
+
+3) jwtService.extractUserName(jwt token); get completed details from database 
+--> jwtService.isTokenValid(jwt, userDetails) --> temporarily store data in SecurityContext [not associated with JSESSIONID] --> check while permiting access --> once response is sent back delete SecurityContext.
+
+
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbm5hQGFkb2JlLmNvbSIsImlhdCI6MTc1MTI3NjQyMiwiZXhwIjoxNzUxMjc3ODYyLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiLCJST0xFX0FETUlOIl0sInJvbGVzIjpbIlJPTEVfVVNFUiIsIlJPTEVfQURNSU4iXSwiaXNzIjoiaHR0cHM6Ly9hdXRoc2VydmVyLmFkb2JlLmNvbSJ9.kfTZwP4S8EiYgsraJHsbeJ-nDCyiJgD0AjPqcqPhdbM"
+}
+
+==============
 
